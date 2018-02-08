@@ -1,2 +1,2 @@
 # notebooks
-Jupyter Notebooks
+Jupyter Notebooks For Machine Learning Study
