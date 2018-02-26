@@ -1,6 +1,7 @@
 # Vanilla RNN Demo
 
 import numpy as np
+import random
 
 # Hyperparameters
 hidden_size = 3
@@ -99,5 +100,53 @@ while iter < 10000:
     iter += 1
 
         
-        
-        
+
+def gradient_check(inputs, targets, hprev):
+
+    num_to_check = 100
+    delta = 1e-5
+
+    # get current parameters
+    loss, dWxh, dWhh, dWhf, dbh, dbf, hprev = getLoss(inputs, targets, hprev)
+    for param, dparam, name in zip( [Wxh, Whh, Whf, bh, bf],
+                         [dWxh, dWhh, dWhf, dbh, dbf],
+                         ['Wxh', 'Whh', 'Whf', 'bh', 'bf'] ):
+        for i in range(0, num_to_check):
+            idx = random.randint(0, param.size)
+
+            # store old param
+            old_val = param.flat[idx]
+
+            # get L(x + h)
+            param.flat[idx] = old_val + delta
+            L_val_1,_,_,_,_,_,_ = getLoss(inputs, targets, hprev)
+            # get L(x - h)
+            param.flat[idx] = old_val + delta
+            L_val_2,_,_,_,_,_,_ = getLoss(inputs, targets, hprev)
+            
+            # restor old parameter
+            param.flat[idx] = old_val
+
+            # get analytic gradient
+            analytic_grad = dparam.flat[idx]
+            # compute numerical gradient
+            numerical_grad = L_val_2 - L_val_1 / (2 * delta)
+
+            # relative error
+            err = abs(numerical_grad - analytic_grad) / abs(numerical_grad + analytic_grad)
+            print(errr)
+            
+    
+
+
+
+
+
+
+
+
+
+
+
+    
+    
