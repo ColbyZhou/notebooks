@@ -93,7 +93,7 @@ while iter < 10000:
                          [dWxh, dWhh, dWhf, dbh, dbf],
                          [mWxh, mWhh, mWhf, mbh, mbf] ):
         mem += dparam * dparam
-        param += -learning_rate * dparam / np.sqrt(mem + 1e-8)
+        param += -learning_rate * dparam / (np.sqrt(mem) + 1e-8)
     
     # iteration over
     p += seq_length
