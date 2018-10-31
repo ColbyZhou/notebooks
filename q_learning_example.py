@@ -59,7 +59,7 @@ def update_q(q_table, action, reward, cur_pos, new_pos):
     new_index = new_pos.x * col + new_pos.y
     max_new_q = np.max(q_table[new_index])
 
-    # new_q_a = (1 - lr) * old_q_a + lr * (reward + gama * new_q)
+    # new_q_a = (1 - lr) * old_q_a + lr * (reward + gama * max_new_q)
     new_q_a = old_q_a + lr * (reward + gama * max_new_q - old_q_a)
     q_table[old_index][action] = new_q_a
     return q_table
